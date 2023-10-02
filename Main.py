@@ -3,22 +3,24 @@ import random
 import matplotlib.pyplot as plt
 import numpy as np
 
+AmountOfDots = 1000 #Количество точек
+AOD = (AmountOfDots + 1) * 10
 a = {}
 worstTimefindMin = {}
 worstTimefindMax = {}
-GraphStuff = [i for i in range(10, 10020, 10)]
+GraphStuff = [i for i in range(10, AOD, 10)]
 StuffForLsmWorstfindMin = {}
 StuffForLsmWorstfindMax = {}
 
 def findMin():
-    min = 999999
+    min = 99999999999
     for i in range(len(a)):
         if a[i] < min:
             min = a[i]
     return min
 
 def findMax():
-    max = -999999
+    max = -99999999999
     for i in range(len(a)):
         if a[i] > max:
             max = a[i]
@@ -27,15 +29,15 @@ def findMax():
 def fillArr(numOfEl):
     a.clear()
     for i in range(numOfEl):
-        a[i] = random.randint(0, 100000)
+        a[i] = random.randint(0, 10000000000)
 
-for i in range(10, 10020, 10):
+for i in range(10, AOD, 10):
     fillArr(i)
-    worstTimefindMin[i] = (timeit.timeit(lambda:findMin(), number = 10)) / 10
+    worstTimefindMin[i] = (timeit.timeit(lambda:findMin(), number = 10)) / 50
 
-for i in range(10, 10020, 10):
+for i in range(10, AOD, 10):
     fillArr(i)
-    worstTimefindMax[i] = (timeit.timeit(lambda:findMax(), number = 10)) / 10
+    worstTimefindMax[i] = (timeit.timeit(lambda:findMax(), number = 10)) / 50
 
 A = np.vstack([GraphStuff, np.ones(len(GraphStuff))]).T
 y = np.array(list(worstTimefindMin.values()))[:, np.newaxis]
