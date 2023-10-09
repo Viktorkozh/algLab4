@@ -51,6 +51,10 @@ plt.scatter(GraphStuff, worstTimefindMin.values(), s=5)
 plt.grid(False)
 plt.plot(GraphStuff, alpha[0]*np.array(list(GraphStuff)) + alpha[1], 'r')
 
+formatted_alpha = [format(a, '.10f') for a in alpha]
+print('Коэффциенты прямой худшего случая: a =', formatted_alpha[0], 'b =', formatted_alpha[1])
+print('Worst time for finding min value correlation', np.corrcoef(GraphStuff, list(worstTimefindMin.values()))[0, 1])
+
 A = np.vstack([GraphStuff, np.ones(len(GraphStuff))]).T
 y = np.array(list(worstTimefindMax.values()))[:, np.newaxis]
 alpha = np.dot((np.dot(np.linalg.inv(np.dot(A.T,A)),A.T)),np.array(list(worstTimefindMax.values())))
@@ -63,7 +67,8 @@ plt.scatter(GraphStuff, worstTimefindMax.values(), s=5)
 plt.grid(False)
 plt.plot(GraphStuff, alpha[0]*np.array(list(GraphStuff)) + alpha[1], 'r')
 
-print('Worst time for finding min value correlation', np.corrcoef(GraphStuff, list(worstTimefindMin.values()))[0, 1])
+formatted_alpha = [format(a, '.10f') for a in alpha]
+print('Коэффициенты прямой среднего случая: a =', formatted_alpha[0], 'b =', formatted_alpha[1])
 print('Median time for finding max value correlation', np.corrcoef(GraphStuff, list(worstTimefindMax.values()))[0, 1])
 
 plt.show()
