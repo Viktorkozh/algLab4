@@ -52,8 +52,8 @@ plt.grid(False)
 plt.plot(GraphStuff, alpha[0]*np.array(list(GraphStuff)) + alpha[1], 'r')
 
 formatted_alpha = [format(a, '.10f') for a in alpha]
-print('Коэффциенты прямой худшего случая: a =', formatted_alpha[0], 'b =', formatted_alpha[1])
-print('Worst time for finding min value correlation', np.corrcoef(GraphStuff, list(worstTimefindMin.values()))[0, 1])
+print('Коэффциенты прямой поиска минимального объекта в массиве: a =', formatted_alpha[0], 'b =', formatted_alpha[1])
+print('Time spent searching min value correlation', np.corrcoef(GraphStuff, list(worstTimefindMin.values()))[0, 1])
 
 A = np.vstack([GraphStuff, np.ones(len(GraphStuff))]).T
 y = np.array(list(worstTimefindMax.values()))[:, np.newaxis]
@@ -68,7 +68,7 @@ plt.grid(False)
 plt.plot(GraphStuff, alpha[0]*np.array(list(GraphStuff)) + alpha[1], 'r')
 
 formatted_alpha = [format(a, '.10f') for a in alpha]
-print('Коэффициенты прямой среднего случая: a =', formatted_alpha[0], 'b =', formatted_alpha[1])
-print('Median time for finding max value correlation', np.corrcoef(GraphStuff, list(worstTimefindMax.values()))[0, 1])
+print('Коэффициенты прямой максимального объекта в массиве: a =', formatted_alpha[0], 'b =', formatted_alpha[1])
+print('Time spent searching max value correlation', np.corrcoef(GraphStuff, list(worstTimefindMax.values()))[0, 1])
 
 plt.show()
