@@ -3,17 +3,17 @@ import random
 import matplotlib.pyplot as plt
 import numpy as np
 
-AmountOfDots = 1000  # Количество точек
-AOD = (AmountOfDots + 1) * 10
+amount_of_dots = 1000  # Количество точек
+aod = (amount_of_dots + 1) * 10
 a = {}
-worstTimefindMin = {}
-worstTimefindMax = {}
-GraphStuff = [i for i in range(10, AOD, 10)]
-StuffForLsmWorstfindMin = {}
-StuffForLsmWorstfindMax = {}
+worst_time_find_min = {}
+worst_time_find_max = {}
+graph_stuff = [i for i in range(10, aod, 10)]
+stuff_for_lsm_worst_find_min = {}
+stuff_for_lsm_worst_find_max = {}
 
 
-def findMin():
+def find_min():
     min = 99999999999
     for i in range(len(a)):
         if a[i] < min:
@@ -21,7 +21,7 @@ def findMin():
     return min
 
 
-def findMax():
+def find_max():
     max = -99999999999
     for i in range(len(a)):
         if a[i] > max:
@@ -29,34 +29,34 @@ def findMax():
     return max
 
 
-def fillArr(numOfEl):
+def fill_arr(num_of_elements):
     a.clear()
-    for i in range(numOfEl):
+    for i in range(num_of_elements):
         a[i] = random.randint(0, 10000000000)
 
 
-for i in range(10, AOD, 10):
-    fillArr(i)
-    worstTimefindMin[i] = (timeit.timeit(lambda: findMin(), number=10)) / 50
+for i in range(10, aod, 10):
+    fill_arr(i)
+    worst_time_find_min[i] = (timeit.timeit(lambda: find_min(), number=10)) / 50
 
-for i in range(10, AOD, 10):
-    fillArr(i)
-    worstTimefindMax[i] = (timeit.timeit(lambda: findMax(), number=10)) / 50
+for i in range(10, aod, 10):
+    fill_arr(i)
+    worst_time_find_max[i] = (timeit.timeit(lambda: find_max(), number=10)) / 50
 
-A = np.vstack([GraphStuff, np.ones(len(GraphStuff))]).T
-y = np.array(list(worstTimefindMin.values()))[:, np.newaxis]
+A = np.vstack([graph_stuff, np.ones(len(graph_stuff))]).T
+y = np.array(list(worst_time_find_min.values()))[:, np.newaxis]
 alpha = np.dot(
     (np.dot(np.linalg.inv(np.dot(A.T, A)), A.T)),
-    np.array(list(worstTimefindMin.values())),
+    np.array(list(worst_time_find_min.values())),
 )  # Взято из книги "Python Programming And Numerical Methods: A Guide For Engineers And Scientists": https://pythonnumericalmethods.berkeley.edu/notebooks/chapter16.04-Least-Squares-Regression-in-Python.html
 
 plt.figure(1).set_figwidth(8)
 plt.xlabel("Количество элементов в массиве")
 plt.ylabel("Среднее время выполнения (секунды)")
 plt.title("Зависимость времени поиска минимального элемента от размера массива")
-plt.scatter(GraphStuff, worstTimefindMin.values(), s=5)
+plt.scatter(graph_stuff, worst_time_find_min.values(), s=5)
 plt.grid(False)
-plt.plot(GraphStuff, alpha[0] * np.array(list(GraphStuff)) + alpha[1], "r")
+plt.plot(graph_stuff, alpha[0] * np.array(list(graph_stuff)) + alpha[1], "r")
 
 formatted_alpha = [format(a, ".10f") for a in alpha]
 print(
@@ -67,23 +67,23 @@ print(
 )
 print(
     "Time spent searching min value correlation",
-    np.corrcoef(GraphStuff, list(worstTimefindMin.values()))[0, 1],
+    np.corrcoef(graph_stuff, list(worst_time_find_min.values()))[0, 1],
 )
 
-A = np.vstack([GraphStuff, np.ones(len(GraphStuff))]).T
-y = np.array(list(worstTimefindMax.values()))[:, np.newaxis]
+A = np.vstack([graph_stuff, np.ones(len(graph_stuff))]).T
+y = np.array(list(worst_time_find_max.values()))[:, np.newaxis]
 alpha = np.dot(
     (np.dot(np.linalg.inv(np.dot(A.T, A)), A.T)),
-    np.array(list(worstTimefindMax.values())),
+    np.array(list(worst_time_find_max.values())),
 )
 
 plt.figure(2).set_figwidth(8)
 plt.xlabel("Количество элементов в массиве")
 plt.ylabel("Среднее время выполнения (секунды)")
 plt.title("Зависимость времени поиска максимального элемента от размера массива")
-plt.scatter(GraphStuff, worstTimefindMax.values(), s=5)
+plt.scatter(graph_stuff, worst_time_find_max.values(), s=5)
 plt.grid(False)
-plt.plot(GraphStuff, alpha[0] * np.array(list(GraphStuff)) + alpha[1], "r")
+plt.plot(graph_stuff, alpha[0] * np.array(list(graph_stuff)) + alpha[1], "r")
 
 formatted_alpha = [format(a, ".10f") for a in alpha]
 print(
@@ -94,7 +94,7 @@ print(
 )
 print(
     "Time spent searching max value correlation",
-    np.corrcoef(GraphStuff, list(worstTimefindMax.values()))[0, 1],
+    np.corrcoef(graph_stuff, list(worst_time_find_max.values()))[0, 1],
 )
 
 plt.show()
